@@ -35,18 +35,18 @@
         />
       </div>
     </div>
-    <div class="row p-5">
+    <div class="row p-5" *ngFor="let user of users">
       <div class="col-lg-2 col-md-2 col-2">
-        <div class="fimg text-white"><img src="" alt="" class="img-fluid"/>img</div>
+        <div class="fimg text-white"><img src={{user.userprofilepic}} alt="" class="img-fluid"/>img</div>
       </div>
       <div class="col-lg-8 col-md-8 col-8">
-        <div class="fname text-white">asd</div>
-      </div>
-      <div class="col-lg-1 col-md-1 col-1">
-        <div class="unfrnd"><i class="bi bi-person-x-fill text-white"></i></div>
+        <div class="fname text-white">{{user.username}}</div>
       </div>
       <div class="col-lg-1 col-md-1 col-1">
         <div class="fmsg"><i class="bi bi-chat-dots-fill text-white"></i></div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-1">
+        <div class="unfrnd"><i class="bi bi-person-x-fill text-white" (click)="delfriend(user.uid)"></i></div>
       </div>
     </div>
   </div>

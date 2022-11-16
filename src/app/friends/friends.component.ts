@@ -8,20 +8,20 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FriendsComponent implements OnInit {
   userinfo: any;
-
-  constructor(private db: AngularFirestore) {}
+  ausers:any;
+  users:any;
+  constructor(private afs: AngularFirestore) {}
 
   ngOnInit(): void {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
-    console.log(this.getfriends());
+    this.afs.collection('friends').valueChanges().subscribe(userss => {
+      this.ausers =userss;
+      this.users =this.ausers.filter((user:any) => user.uid!=this.userinfo.uid);
+    });
   }
 
-  getfriends() {
-    return new Promise<any>((resolve) => {
-      this.db
-        .collection('friends')
-        .valueChanges({ uid: this.userinfo.uid })
-        .subscribe((users) => resolve(users));
-    });
+  delfriend(afdid:any){
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    this.afs.doc(`friends/${afdid}`).delete();
   }
 }
