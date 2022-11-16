@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private AuthService:AuthService) { }
+  userinfo:any;
 
   ngOnInit(): void {
+    this.userinfo = JSON.parse(localStorage.getItem("user")!);
+    console.log(this.userinfo)
+    console.log(this.userinfo.displayName)
+    document.getElementById('userpic')!.setAttribute("src",this.userinfo.photoURL)
   }
-
 }

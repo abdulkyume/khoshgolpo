@@ -16,6 +16,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { AuthService } from './auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FriendsComponent } from './friends/friends.component';
+import { AddfriendsComponent } from './addfriends/addfriends.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LoginComponent,
     ChatComponent,
     ProfileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FriendsComponent,
+    AddfriendsComponent
   ],
   imports: [
     BrowserModule,
