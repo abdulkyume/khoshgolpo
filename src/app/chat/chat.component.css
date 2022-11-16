@@ -1,0 +1,23 @@
+.sidebar {
+    height: 95vh;
+    overflow-y: auto;
+  }
+  .mainbar {
+    height: 85.85vh;
+    border-left: 1px solid white;
+    overflow-y: auto;
+  }
+  .msgbody {
+    width: 350px;
+  }
+  .send {
+    border-radius: 1rem 1rem 0rem 1rem;
+  }
+  .recevied {
+    border-radius: 1rem 1rem 1rem 0rem;
+  }
+.profilepic{
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+}
