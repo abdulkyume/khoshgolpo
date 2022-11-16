@@ -11,7 +11,8 @@ export const environment = {
     storageBucket: "khoshgolpo-9cc10.appspot.com",
     messagingSenderId: "302946152975",
     appId: "1:302946152975:web:69eea9098da49111e0297a",
-    measurementId: "G-9M6C67VFLE"
+    measurementId: "G-9M6C67VFLE",
+    databaseURL: "https://khoshgolpo-9cc10-default-rtdb.asia-southeast1.firebasedatabase.app"
   }
 };
 /*

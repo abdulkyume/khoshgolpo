@@ -5,9 +5,16 @@
         <strong class="d-inline-block me-3"
           ><i class="bi bi-justify text-white"></i
         ></strong>
-        <a href="" class="text-decoration-none text-white"><img src="assets/img/khoshgolpo.png" alt="khoshgolpo" class="img-fluid w-25"></a>
+        <a routerLink="/profile" class="text-decoration-none text-white"
+          ><img
+            src="assets/img/khoshgolpo.png"
+            alt="khoshgolpo"
+            class="img-fluid w-25"
+        /></a>
       </div>
-      <div class="col-lg-6 col-md-6 col-6 text-end align-content-center justify-content-end align-items-center d-flex">
+      <div
+        class="col-lg-6 col-md-6 col-6 text-end align-content-center justify-content-end align-items-center d-flex"
+      >
         <strong class="d-inline-block"
           ><i class="bi bi-justify text-white"></i
         ></strong>
@@ -15,74 +22,74 @@
     </div>
   </div>
 </header>
-  <section class="bg-dark">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-4 text-white sidebar p-4">
-          <div class="friendlist mb-3" *ngFor="let friend of friends" >
-            <div class="profile"(click)="showfriendmsg(friend.id)">
-              <div class="profilepic">
-                <img src="assets/img/profile.jpg" class="img-fluid rounded-5"/>
-              </div>
-              <div class="profilename d-inline-block ms-3">{{friend.name}}</div>
+<section class="bg-dark">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-4 text-white sidebar p-4">
+        <div class="friendlist mb-3" *ngFor="let friend of friends">
+          <div class="profile" (click)="showfriendmsg(friend.id)">
+            <div class="profilepic">
+              <img src="assets/img/profile.jpg" class="img-fluid rounded-5" />
             </div>
+            <div class="profilename d-inline-block ms-3">{{ friend.name }}</div>
           </div>
         </div>
-        <div class="col-lg-9 col-md-8 col-8 text-white">
-          <div *ngIf="msg.length > 0; then thenBlock; else elseBlock"></div>
-          <ng-template #thenBlock>
-            <div class="row">
-              <div class="col-lg-4 col-md-4 col-4">
-                <button class="btn">
-                  <i class="bi bi-arrow-left-short text-white"></i>
-                </button>
-              </div>
-              <div class="col-lg-4 col-md-4 col-4">
-                <p class="text-center">Test's Name</p>
-              </div>
-              <div class="col-lg-4 col-md-4 col-4 text-end">
-                <button class="btn">
-                  <i class="bi bi-info-circle text-white"></i>
-                </button>
-              </div>
+      </div>
+      <div class="col-lg-9 col-md-8 col-8 text-white">
+        <div *ngIf="msg.length > 0; then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-4">
+              <button class="btn">
+                <i class="bi bi-arrow-left-short text-white"></i>
+              </button>
             </div>
-            <div class="row mainbar" id="mainbar" #scrollMe>
-              <div *ngFor="let m of msg">
-                <div
-                  *ngIf="m.type == 'send'; then sendBlock; else receiveBlock"
-                ></div>
-                <ng-template #sendBlock>
-                  <p class="bg-danger mb-4 p-2 msgbody send ms-auto">
-                    {{ m.msg }}
-                  </p>
-                </ng-template>
-                <ng-template #receiveBlock>
-                  <p class="bg-primary mb-4 p-2 msgbody recevied me-auto">
-                    <small>{{ m.type }}</small> <br />
-                    {{ m.msg }}
-                  </p>
-                </ng-template>
-              </div>
+            <div class="col-lg-4 col-md-4 col-4">
+              <p class="text-center">Test's Name</p>
             </div>
-            <div class="row">
-              <div class="input-group">
-                <input
-                  [(ngModel)]="newMessage"
-                  (keyup)="$event.keyCode == 13 && sendMessage()"
-                  type="text"
-                  placeholder="Enter Message"
-                  class="form-control"
-                />
-                <button class="btn text-white btn-outline-light" type="button">
-                  Send
-                </button>
-              </div>
+            <div class="col-lg-4 col-md-4 col-4 text-end">
+              <button class="btn">
+                <i class="bi bi-info-circle text-white"></i>
+              </button>
             </div>
-          </ng-template>
-          <ng-template #elseBlock
-            >Content to render when condition is false.</ng-template
-          >
-        </div>
+          </div>
+          <div class="row mainbar" id="mainbar" #scrollMe>
+            <div *ngFor="let m of msg">
+              <div
+                *ngIf="m.id == userinfo.uid; then sendBlock; else receiveBlock"
+              ></div>
+              <ng-template #sendBlock>
+                <p class="bg-danger mb-4 p-2 msgbody send ms-auto">
+                  {{ m.message }}
+                </p>
+              </ng-template>
+              <ng-template #receiveBlock>
+                <p class="bg-primary mb-4 p-2 msgbody recevied me-auto">
+                  <small>{{ m.username }}</small> <br />
+                  {{ m.message }}
+                </p>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <input
+                [(ngModel)]="newMessage"
+                (keyup)="$event.keyCode == 13 && sendMessage()"
+                type="text"
+                placeholder="Enter Message"
+                class="form-control"
+              />
+              <button class="btn text-white btn-outline-light" type="button">
+                Send
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #elseBlock
+          >Content to render when condition is false.</ng-template
+        >
       </div>
     </div>
-  </section>
+  </div>
+</section>
