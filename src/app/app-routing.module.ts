@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'friendreq', component: FriendreqComponent },
     ],
   },
+  { path: 'addfriend', component: AddfriendsComponent },
   { path: 'allfriends', component: AllfriendsComponent },
   { path: 'friendreq', component: FriendreqComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
