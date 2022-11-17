@@ -20,11 +20,11 @@ export class FriendreqComponent implements OnInit {
       .subscribe((userss) => {
         this.ausers = userss;
         this.ausers = this.ausers.filter(
-          (user: any) => user.uid == this.userinfo.uid
+          (user: any) => user.afduid == this.userinfo.uid
         );
         var freq: any = [];
         for (var i = 0; i < this.ausers.length; i++) {
-          freq.push(this.ausers[i].afduid);
+          freq.push(this.ausers[i].uid);
         }
         if (freq.length > 0) {
           this.afs
@@ -48,19 +48,19 @@ export class FriendreqComponent implements OnInit {
   }
   accfriendreq(afdid: any) {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
-    this.afs
-      .collection('addfriends')
-      .doc(`${this.userinfo.uid + afdid}`)
-      .delete()
-      .then(() => console.log('Item deleted'))
-      .catch((err) => console.log('Error!', err));
-
-    this.afs.collection('friends').doc(this.userinfo.uid + afdid).set(
+    this.afs.collection('firends').doc(this.userinfo.uid + afdid).set(
       {
         uid: this.userinfo.uid,
         fuid: afdid,
       },
       { merge: true }
     );
+    this.afs
+      .collection('addfriends')
+      .doc(`${afdid+this.userinfo.uid}`)
+      .delete()
+      .then(() => console.log('Item deleted'))
+      .catch((err) => console.log('Error!', err));
+    this.ngOnInit();
   }
 }
