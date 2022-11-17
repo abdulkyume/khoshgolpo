@@ -22,7 +22,7 @@ export class AddfriendsComponent implements OnInit {
   }
   addfriendreq(afdid:any){
     var userinfo = JSON.parse(localStorage.getItem('user')!);
-    this.afs.collection('addfriends').doc(userinfo.uid).set(
+    this.afs.collection('addfriends').doc(userinfo.uid+afdid).set(
       {
         uid: userinfo.uid,
         afduid:afdid

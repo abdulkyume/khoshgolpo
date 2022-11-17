@@ -42,20 +42,10 @@ export class FriendreqComponent implements OnInit {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
       .collection('addfriends')
-      .valueChanges()
-      .subscribe((ussers) => {
-        this.users = ussers;
-        this.users = this.users.filter(
-          (user: any) => user.afduid == afdid
-        );
-        console.log(this.users)
-      });
-    // this.afs
-    //   .collection('addfriends')
-    //   .doc(`${this.userinfo.uid}`)
-    //   .delete()
-    //   .then(() => console.log('Item deleted'))
-    //   .catch((err) => console.log('Error!', err));
+      .doc(`${this.userinfo.uid+afdid}`)
+      .delete()
+      .then(() => console.log('Item deleted'))
+      .catch((err) => console.log('Error!', err));
   }
   accfriendreq(afdid: any) {
     console.log(afdid);
