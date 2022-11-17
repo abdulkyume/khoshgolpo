@@ -42,8 +42,8 @@
       <div class="col-lg-8 col-md-8 col-9 d-flex align-items-center">
         <div class="fname text-white">{{user.username}}</div>
       </div>
-      <div class="col-lg-1 col-md-1 col-1 d-flex align-items-center">
-        <div class="adfrnd"><i class="bi bi-person-x-fill text-white" (click)="addfriendreq(user.uid)"></i></div>
+      <div class="col-lg-1 col-md-1 col-1 d-flex align-items-center" (click)="addfriendreq(user.uid)">
+        <div class="adfrnd"><i class="bi bi-person-x-fill text-white"></i></div>
       </div>
     </div>
   </div>
