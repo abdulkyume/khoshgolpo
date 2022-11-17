@@ -18,6 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AddfriendsComponent } from './addfriends/addfriends.component';
+import { FriendreqComponent } from './friendreq/friendreq.component';
+import { AllfriendsComponent } from './allfriends/allfriends.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AddfriendsComponent } from './addfriends/addfriends.component';
     ProfileComponent,
     PageNotFoundComponent,
     FriendsComponent,
-    AddfriendsComponent
+    AddfriendsComponent,
+    FriendreqComponent,
+    AllfriendsComponent
   ],
   imports: [
     BrowserModule,
