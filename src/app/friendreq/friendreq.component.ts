@@ -8,20 +8,30 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FriendreqComponent implements OnInit {
   userinfo: any;
-  ausers:any;
-  users:any;
-  constructor(private afs: AngularFirestore) {}
+  ausers: any;
+  users!: any;
+  constructor(private afs: AngularFirestore) { }
 
   ngOnInit(): void {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs.collection('addfriends').valueChanges().subscribe(userss => {
-      this.ausers =userss;
-      this.users =this.ausers.filter((user:any) => user.uid!=this.userinfo.uid);
+      this.ausers = userss;
+      this.ausers = this.ausers.filter((user: any) => user.uid == this.userinfo.uid);
+      var freq: any = [];
+      for (var i = 0; i < this.ausers.length; i++) {
+        freq.push(this.ausers[i].afduid);
+      }
+      this.afs.collection('users', ref => ref.where('uid', 'in', freq)).valueChanges().subscribe(ussers => {
+        this.users = ussers;
+      })
     });
   }
 
-  delfriendreq(afdid:any){
+  delfriendreq(afdid: any) {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs.doc(`addfriends/${afdid}`).delete();
+  }
+  accfriendreq(afdid:any){
+    
   }
 }

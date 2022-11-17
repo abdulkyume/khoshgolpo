@@ -15,15 +15,17 @@
       <img src="{{ user.userprofilepic }}" alt="" class="img-fluid" />
     </div>
   </div>
-  <div class="col-lg-9 col-md-8 col-8">
+  <div class="col-lg-8 col-md-8 col-8 d-flex align-items-center">
     <div class="fname text-white">{{ user.username }}</div>
   </div>
-  <div class="col-lg-1 col-md-1 col-1">
+  <div class="col-lg-1 col-md-1 col-1 d-flex align-items-center">
+    <div class="acfrnd">
+      <i class="text-white" (click)="accfriendreq(user.uid)"> Accept</i>
+    </div>
+  </div>
+  <div class="col-lg-1 col-md-1 col-1 d-flex align-items-center">
     <div class="unfrnd">
-      <i
-        class="bi bi-person-fill-x text-white"
-        (click)="delfriendreq(user.uid)"
-      ></i>
+      <i class="text-white" (click)="delfriendreq(user.uid)"> Cancel</i>
     </div>
   </div>
 </div>
