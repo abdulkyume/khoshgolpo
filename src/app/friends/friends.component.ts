@@ -16,7 +16,7 @@ export class FriendsComponent implements OnInit {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs.collection('friends').valueChanges().subscribe(userss => {
       this.ausers =userss;
-      this.users =this.ausers.filter((user:any) => user.uid!=this.userinfo.uid);
+      this.users =this.ausers.filter((user:any) => user.uid==this.userinfo.uid);
     });
   }
 
