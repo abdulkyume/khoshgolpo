@@ -26,12 +26,17 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-4 text-white sidebar p-4">
-        <div class="friendlist mb-3" *ngFor="let friend of friends">
-          <div class="profile" (click)="showfriendmsg(friend.id)">
+        <div class="friendlist mb-3" *ngFor="let user of users">
+          <div class="profile" (click)="showfriendmsg(user.uid)">
             <div class="profilepic">
-              <img src="assets/img/profile.jpg" class="img-fluid rounded-5" />
+              <img
+                src="{{ user.userprofilepic }}"
+                class="img-fluid rounded-5"
+              />
             </div>
-            <div class="profilename d-inline-block ms-3">{{ friend.name }}</div>
+            <div class="profilename d-inline-block ms-3">
+              {{ user.username }}
+            </div>
           </div>
         </div>
       </div>
@@ -86,9 +91,11 @@
             </div>
           </div>
         </ng-template>
-        <ng-template #elseBlock
-          >Content to render when condition is false.</ng-template
-        >
+        <ng-template #elseBlock>
+          <div class="d-flex justify-content-center align-content-center align-items-center h-100">
+            <div><img src="assets/img/khoshgolpo.png" alt="" class="img-fluid"></div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

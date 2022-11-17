@@ -21,3 +21,6 @@
   height: 60px;
   display: inline-block;
 }
+.profile:hover{
+  cursor:default;
+}

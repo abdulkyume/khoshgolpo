@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 // import { Chat } from '../chat';
 import { Chat } from './../Chat';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-chat',
@@ -21,55 +22,42 @@ import { Chat } from './../Chat';
 })
 export class ChatComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
-  userinfo!:any;
+  ausers: any;
+  users: any;
+  userinfo!: any;
   title = '';
   app!: FirebaseApp;
   db!: Database;
   // form!: FormGroup;
   username = '';
   message = '';
-  // chats: Chat[] = [];
-  constructor(
-    private chatService: ChatService,
-    // private FormBuilder: FormBuilder
-  ) {
-    this.app = initializeApp(environment.firebase);
-    this.db = getDatabase(this.app);
-    // this.form = this.FormBuilder.group({
-    //   message: [],
-    //   username: [],
-    // });
-  }
+  constructor(private afs: AngularFirestore) {}
   newMessage!: string;
-  friends = [
-    {
-      profile_pic: 'assets/img/profile.jpg',
-      id: 123124,
-      name: 'John Doe',
-    },
-    {
-      profile_pic: 'assets/img/profile.jpg',
-      id: 124653124,
-      name: 'Doe John',
-    },
-  ];
-  msg :Chat[]=[];
+  msg: Chat[] = [];
 
   ngOnInit() {
-    this.userinfo = JSON.parse(localStorage.getItem("user")!);
-    console.log(this.userinfo);
-    // this.chatService.getNewMessage().subscribe((message: any) => {
-    //   this.msg.push(message);
-    // });
-    const chtasref = ref(this.db,'chats');
-    onValue(chtasref,(snapshot:any) =>{
-      const data = snapshot.data;
-      for (let id in data){
-        if(!this.msg.map(chat=>chat.id).includes(id)){
-          this.msg.push(data[id]);
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    this.afs
+      .collection('firends')
+      .valueChanges()
+      .subscribe((userss) => {
+        var includ: any = [];
+        this.ausers = userss;
+        this.ausers = this.ausers.filter(
+          (user: any) => user.uid == this.userinfo.uid
+        );
+        for (var i = 0; i < this.ausers.length; i++) {
+          includ.push(this.ausers[i].fuid);
         }
-      }
-    })
+        if (includ.length > 0) {
+          this.afs
+            .collection('users', (ref) => ref.where('uid', 'in', includ))
+            .valueChanges()
+            .subscribe((ussers) => {
+              this.users = ussers;
+            });
+        }
+      });
     this.scrollToBottom();
   }
   ngAfterViewChecked() {
@@ -78,8 +66,12 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     const timestamp = new Date().toString();
     // var send = { type: 'send', msg: this.newMessage };
-    var send = { id: this.userinfo.uid, msg: this.newMessage, timeStamp:timestamp };
-    set(ref(this.db, `chats/${this.userinfo.uid}`),send)
+    var send = {
+      id: this.userinfo.uid,
+      msg: this.newMessage,
+      timeStamp: timestamp,
+    };
+    set(ref(this.db, `chats/${this.userinfo.uid}`), send);
     // this.chatService.sendMessage(send);
     this.newMessage = '';
   }
