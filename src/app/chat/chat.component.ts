@@ -25,16 +25,15 @@ export class ChatComponent implements OnInit {
   ausers: any;
   users: any;
   userinfo!: any;
-  title = '';
-  app!: FirebaseApp;
-  db!: Database;
-  // form!: FormGroup;
   username = '';
   message = '';
-  constructor(private afs: AngularFirestore) {}
+  friendid:any;
   newMessage!: string;
   msg: Chat[] = [];
+  hide =false;
 
+  constructor(private afs: AngularFirestore) {}
+  
   ngOnInit() {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
@@ -64,15 +63,15 @@ export class ChatComponent implements OnInit {
     this.scrollToBottom();
   }
   sendMessage() {
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
     const timestamp = new Date().toString();
-    // var send = { type: 'send', msg: this.newMessage };
     var send = {
-      id: this.userinfo.uid,
+      suid: this.userinfo.uid,
+      ruid: this.friendid,
       msg: this.newMessage,
       timeStamp: timestamp,
     };
-    set(ref(this.db, `chats/${this.userinfo.uid}`), send);
-    // this.chatService.sendMessage(send);
+    console.log(send)
     this.newMessage = '';
   }
   scrollToBottom(): void {
@@ -82,6 +81,10 @@ export class ChatComponent implements OnInit {
     } catch (err) {}
   }
   showfriendmsg(val: any) {
-    console.log(val);
+    this.hide = true;
+    var name = this.users.filter((user:any)=>user.uid == val);
+    this.friendid = name[0].uid;
+    var name = name[0].username;
+    this.username = name;
   }
 }

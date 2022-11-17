@@ -41,16 +41,16 @@
         </div>
       </div>
       <div class="col-lg-9 col-md-8 col-8 text-white">
-        <div *ngIf="msg.length > 0; then thenBlock; else elseBlock"></div>
+        <div *ngIf="hide; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="row">
             <div class="col-lg-4 col-md-4 col-4">
               <button class="btn">
-                <i class="bi bi-arrow-left-short text-white"></i>
+                <i class="bi bi-arrow-left-short text-white" (click)="hide=false"></i>
               </button>
             </div>
             <div class="col-lg-4 col-md-4 col-4">
-              <p class="text-center">Test's Name</p>
+              <p class="text-center">{{username}}</p>
             </div>
             <div class="col-lg-4 col-md-4 col-4 text-end">
               <button class="btn">
@@ -81,11 +81,12 @@
               <input
                 [(ngModel)]="newMessage"
                 (keyup)="$event.keyCode == 13 && sendMessage()"
+                
                 type="text"
                 placeholder="Enter Message"
                 class="form-control"
               />
-              <button class="btn text-white btn-outline-light" type="button">
+              <button class="btn text-white btn-outline-light" type="button"(click)="sendMessage()">
                 Send
               </button>
             </div>

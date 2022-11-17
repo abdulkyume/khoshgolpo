@@ -27,7 +27,6 @@ export class AddfriendsComponent implements OnInit {
         for (var i = 0; i < this.users.length; i++) {
           exlude.push(this.users[i].afduid);
         }
-        console.log(exlude);
         this.afs
           .collection('users', (ref) => ref.where('uid', 'not-in', exlude))
           .valueChanges()

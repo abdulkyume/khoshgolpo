@@ -1,9 +1,9 @@
 .sidebar {
-    height: 95vh;
-    overflow-y: auto;
+    height: 92.5vh;
+    overflow-y: scroll;
   }
   .mainbar {
-    height: 85.85vh;
+    height: 83vh;
     border-left: 1px solid white;
     overflow-y: auto;
   }

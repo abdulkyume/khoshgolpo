@@ -13,6 +13,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userinfo = JSON.parse(localStorage.getItem("user")!);
-    document.getElementById('userpic')!.setAttribute("src",this.userinfo.photoURL)
+    document.getElementById('userpic')!.setAttribute("src",this.userinfo.photoURL);
   }
 }
