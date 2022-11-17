@@ -26,15 +26,14 @@ export class FriendreqComponent implements OnInit {
         for (var i = 0; i < this.ausers.length; i++) {
           freq.push(this.ausers[i].afduid);
         }
-        if(freq.length>0){
+        if (freq.length > 0) {
           this.afs
-          .collection('users', (ref) => ref.where('uid', 'in', freq))
-          .valueChanges()
-          .subscribe((ussers) => {
-            this.users = ussers;
-          });
+            .collection('users', (ref) => ref.where('uid', 'in', freq))
+            .valueChanges()
+            .subscribe((ussers) => {
+              this.users = ussers;
+            });
         }
-        
       });
   }
 
@@ -42,12 +41,26 @@ export class FriendreqComponent implements OnInit {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
       .collection('addfriends')
-      .doc(`${this.userinfo.uid+afdid}`)
+      .doc(`${this.userinfo.uid + afdid}`)
       .delete()
       .then(() => console.log('Item deleted'))
       .catch((err) => console.log('Error!', err));
   }
   accfriendreq(afdid: any) {
-    console.log(afdid);
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    this.afs
+      .collection('addfriends')
+      .doc(`${this.userinfo.uid + afdid}`)
+      .delete()
+      .then(() => console.log('Item deleted'))
+      .catch((err) => console.log('Error!', err));
+
+    this.afs.collection('friends').doc(this.userinfo.uid + afdid).set(
+      {
+        uid: this.userinfo.uid,
+        fuid: afdid,
+      },
+      { merge: true }
+    );
   }
 }
