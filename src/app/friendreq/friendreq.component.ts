@@ -55,6 +55,13 @@ export class FriendreqComponent implements OnInit {
       },
       { merge: true }
     );
+    this.afs.collection('firends').doc(afdid + this.userinfo.uid ).set(
+      {
+        uid: afdid,
+        fuid: this.userinfo.uid,
+      },
+      { merge: true }
+    );
     this.afs
       .collection('addfriends')
       .doc(`${afdid+this.userinfo.uid}`)

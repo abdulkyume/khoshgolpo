@@ -72,7 +72,7 @@ export class ChatComponent implements OnInit {
       username: this.userinfo.displayName,
       message: this.newMessage,
       timeStamp: timestamp,
-      type: '',
+      type: 'send',
     };
     this.afs
       .collection('chats')
@@ -80,8 +80,6 @@ export class ChatComponent implements OnInit {
       .set(send)
       .then(() => {
         this.newMessage = '';
-        send.type = 'send';
-        this.msg.push(send);
       });
   }
   scrollToBottom(): void {
@@ -102,7 +100,7 @@ export class ChatComponent implements OnInit {
     this.geallmsg();
   }
   geallmsg() {
-    this.msg=[]
+    this.msg = [];
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     var nmsg: any;
     this.afs
