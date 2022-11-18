@@ -15,4 +15,7 @@ export class ProfileComponent implements OnInit {
     this.userinfo = JSON.parse(localStorage.getItem("user")!);
     document.getElementById('userpic')!.setAttribute("src",this.userinfo.photoURL);
   }
+  logout(){
+    this.AuthService.SignOut();
+  }
 }

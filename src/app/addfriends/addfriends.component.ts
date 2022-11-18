@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'app-addfriends',
@@ -12,7 +13,7 @@ export class AddfriendsComponent implements OnInit {
   userinfo: any;
   freqsearch: any;
   freq: any = [];
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private AuthService:AuthService) {}
 
   ngOnInit(): void {
     var userinfo = JSON.parse(localStorage.getItem('user')!);
@@ -76,5 +77,8 @@ export class AddfriendsComponent implements OnInit {
           user.name.toLowerCase().includes(this.freqsearch.toLowerCase())
         );
     }
+  }
+  logout(){
+    this.AuthService.SignOut();
   }
 }

@@ -14,6 +14,7 @@ import {
 // import { Chat } from '../chat';
 import { Chat } from './../Chat';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -33,7 +34,7 @@ export class ChatComponent implements OnInit {
   msg: Chat[] = [];
   hide = false;
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private AuthService:AuthService) {}
 
   ngOnInit() {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
@@ -100,7 +101,6 @@ export class ChatComponent implements OnInit {
     this.geallmsg();
   }
   geallmsg() {
-    
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     var smsg: any;
     var rmsg: any;
@@ -131,5 +131,8 @@ export class ChatComponent implements OnInit {
           this.msg.push(arr3[i]);
         }
       });
+  }
+  logout(){
+    this.AuthService.SignOut();
   }
 }

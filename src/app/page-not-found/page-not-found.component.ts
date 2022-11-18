@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(private AuthService:AuthService) { }
 
   ngOnInit(): void {
   }
-
+  logout(){
+    this.AuthService.SignOut();
+  }
 }
