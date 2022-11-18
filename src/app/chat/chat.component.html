@@ -61,7 +61,7 @@
           <div class="row mainbar" id="mainbar" #scrollMe>
             <div *ngFor="let m of msg">
               <div
-                *ngIf="m.id == userinfo.uid; then sendBlock; else receiveBlock"
+                *ngIf="m.suid == userinfo.uid; then sendBlock; else receiveBlock"
               ></div>
               <ng-template #sendBlock>
                 <p class="bg-danger mb-4 p-2 msgbody send ms-auto">
@@ -80,13 +80,13 @@
             <div class="input-group">
               <input
                 [(ngModel)]="newMessage"
-                (keyup)="$event.keyCode == 13 && sendMessage()"
+                (keyup)="$event.keyCode == 13 && sendMessage(receiverid)"
                 
                 type="text"
                 placeholder="Enter Message"
                 class="form-control"
               />
-              <button class="btn text-white btn-outline-light" type="button"(click)="sendMessage()">
+              <button class="btn text-white btn-outline-light" type="button"(click)="sendMessage(receiverid)">
                 Send
               </button>
             </div>

@@ -1,6 +1,8 @@
 export interface Chat {
-  id?: string;
+  suid?: string;
+  ruid?: string;
   username: string;
   message: string;
-  timestamp: Date;
+  timeStamp: string;
+  type:string;
 }

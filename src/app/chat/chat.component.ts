@@ -26,14 +26,15 @@ export class ChatComponent implements OnInit {
   users: any;
   userinfo!: any;
   username = '';
+  receiverid:any;
   message = '';
-  friendid:any;
+  friendid: any;
   newMessage!: string;
   msg: Chat[] = [];
-  hide =false;
+  hide = false;
 
   constructor(private afs: AngularFirestore) {}
-  
+
   ngOnInit() {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
@@ -62,17 +63,26 @@ export class ChatComponent implements OnInit {
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-  sendMessage() {
+  sendMessage(val:any) {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     const timestamp = new Date().toString();
     var send = {
       suid: this.userinfo.uid,
       ruid: this.friendid,
-      msg: this.newMessage,
+      username: this.userinfo.displayName,
+      message: this.newMessage,
       timeStamp: timestamp,
+      type: '',
     };
-    console.log(send)
-    this.newMessage = '';
+    this.afs
+      .collection('chats')
+      .doc(this.userinfo.uid+"-"+val+"-"+timestamp)
+      .set(send)
+      .then(() => {
+        this.newMessage = '';
+        send.type = 'send';
+        this.msg.push(send);
+      });
   }
   scrollToBottom(): void {
     try {
@@ -81,10 +91,20 @@ export class ChatComponent implements OnInit {
     } catch (err) {}
   }
   showfriendmsg(val: any) {
+    this.receiverid = val;
     this.hide = true;
-    var name = this.users.filter((user:any)=>user.uid == val);
+    var name = this.users.filter((user: any) => user.uid == val);
     this.friendid = name[0].uid;
     var name = name[0].username;
     this.username = name;
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    // this.afs
+    //   .collection('chats', (ref) => ref.where('suid', '==', this.userinfo.uid && 'suid', '==', this.userinfo.uid))
+    //   .valueChanges()
+    //   .subscribe((ussers) => {
+    //     // this.users = ussers;
+    //     console.log(ussers)
+    //   });
   }
+  geallmsg() {}
 }
