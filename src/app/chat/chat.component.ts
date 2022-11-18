@@ -102,6 +102,7 @@ export class ChatComponent implements OnInit {
     this.geallmsg();
   }
   geallmsg() {
+    this.msg=[]
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     var nmsg: any;
     this.afs
