@@ -43,7 +43,7 @@ export class AllfriendsComponent implements OnInit {
       .collection('firends')
       .doc(`${this.userinfo.uid + afdid}`)
       .delete()
-      .then(() => console.log('Item deleted'))
+      .then(() => console.log('deleted'))
       .catch((err) => console.log('Error!', err));
     this.ngOnInit();
   }

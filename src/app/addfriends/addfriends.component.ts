@@ -54,6 +54,17 @@ export class AddfriendsComponent implements OnInit {
         },
         { merge: true }
       );
+
+    this.afs
+      .collection('addfriends')
+      .doc(afdid +userinfo.uid)
+      .set(
+        {
+          uid: afdid,
+          afduid: userinfo.uid,
+        },
+        { merge: true }
+      );
     this.freq.push(userinfo.uid);
     this.freq.push(afdid);
     this.afs
