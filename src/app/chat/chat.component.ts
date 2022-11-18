@@ -102,25 +102,33 @@ export class ChatComponent implements OnInit {
   geallmsg() {
     
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
-    var nmsg: any;
+    var smsg: any;
+    var rmsg: any;
     this.afs
       .collection('chats')
       .valueChanges()
       .subscribe((ussers) => {
-        nmsg = ussers;
-        nmsg = nmsg.filter(
+        smsg = ussers;
+        rmsg = ussers;
+        smsg = smsg.filter(
           (msg: any) =>
             msg.suid == this.userinfo.uid && msg.ruid == this.receiverid
         );
-        nmsg.sort(function (a: any, b: any) {
+        rmsg = rmsg.filter(
+          (msg: any) =>
+            msg.ruid == this.userinfo.uid && msg.suid == this.receiverid
+        );
+        var arr3 = [...smsg, ...rmsg];
+        arr3.sort(function (a: any, b: any) {
           var c: any = new Date(b.timeStamp);
           var d: any = new Date(a.timeStamp);
           return c - d;
         });
-        nmsg.reverse();
+        arr3.reverse();
+        
         this.msg = [];
-        for (var i = 0; i < nmsg.length; i++) {
-          this.msg.push(nmsg[i]);
+        for (var i = 0; i < arr3.length; i++) {
+          this.msg.push(arr3[i]);
         }
       });
   }
