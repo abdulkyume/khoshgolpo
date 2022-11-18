@@ -12,15 +12,13 @@ export class ProfileComponent implements OnInit {
   userinfo: any;
 
   ngOnInit(): void {
+    console.log('here')
     this.userinfo = localStorage.getItem('user')!;
-    if (this.userinfo) {
-      this.router.navigate(['login']);
-    } else {
-      this.userinfo = JSON.parse(this.userinfo);
+    this.userinfo = JSON.parse(this.userinfo);
       document
         .getElementById('userpic')!
         .setAttribute('src', this.userinfo.photoURL);
-    }
+    // z
   }
   logout() {
     this.AuthService.SignOut();
