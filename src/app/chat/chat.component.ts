@@ -89,7 +89,7 @@ export class ChatComponent implements OnInit {
     } catch (err) {}
   }
   showfriendmsg(val: any) {
-    console.log('here');
+    
     this.receiverid = val;
     this.hide = true;
     var name = this.users.filter((user: any) => user.uid == val);
@@ -100,7 +100,7 @@ export class ChatComponent implements OnInit {
     this.geallmsg();
   }
   geallmsg() {
-    this.msg = [];
+    
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     var nmsg: any;
     this.afs
@@ -118,6 +118,7 @@ export class ChatComponent implements OnInit {
           return c - d;
         });
         nmsg.reverse();
+        this.msg = [];
         for (var i = 0; i < nmsg.length; i++) {
           this.msg.push(nmsg[i]);
         }
