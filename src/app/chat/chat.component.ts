@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
   users: any;
   userinfo!: any;
   username = '';
-  receiverid:any;
+  receiverid: any;
   message = '';
   friendid: any;
   newMessage!: string;
@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit {
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-  sendMessage(val:any) {
+  sendMessage(val: any) {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     const timestamp = new Date().toString();
     var send = {
@@ -76,7 +76,7 @@ export class ChatComponent implements OnInit {
     };
     this.afs
       .collection('chats')
-      .doc(this.userinfo.uid+"-"+val+"-"+timestamp)
+      .doc(this.userinfo.uid + '-' + val + '-' + timestamp)
       .set(send)
       .then(() => {
         this.newMessage = '';
@@ -91,6 +91,7 @@ export class ChatComponent implements OnInit {
     } catch (err) {}
   }
   showfriendmsg(val: any) {
+    console.log('here');
     this.receiverid = val;
     this.hide = true;
     var name = this.users.filter((user: any) => user.uid == val);
@@ -98,13 +99,29 @@ export class ChatComponent implements OnInit {
     var name = name[0].username;
     this.username = name;
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    this.geallmsg();
+  }
+  geallmsg() {
+    this.userinfo = JSON.parse(localStorage.getItem('user')!);
+    var nmsg: any;
     this.afs
       .collection('chats')
       .valueChanges()
       .subscribe((ussers) => {
-        // this.users = ussers;
-        console.log(ussers)
+        nmsg = ussers;
+        nmsg = nmsg.filter(
+          (msg: any) =>
+            msg.suid == this.userinfo.uid && msg.ruid == this.receiverid
+        );
+        nmsg.sort(function (a: any, b: any) {
+          var c: any = new Date(b.timeStamp);
+          var d: any = new Date(a.timeStamp);
+          return c - d;
+        });
+        nmsg.reverse();
+        for (var i = 0; i < nmsg.length; i++) {
+          this.msg.push(nmsg[i]);
+        }
       });
   }
-  geallmsg() {}
 }
