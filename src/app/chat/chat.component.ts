@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.userinfo = localStorage.getItem('user')!;
-    if (this.userinfo) {
+    if (this.userinfo==null) {
       this.router.navigate(['login']);
     } else {
       this.userinfo = JSON.parse(localStorage.getItem('user')!);
