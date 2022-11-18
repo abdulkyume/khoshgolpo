@@ -34,7 +34,10 @@ export class ChatComponent implements OnInit {
   msg: Chat[] = [];
   hide = false;
 
-  constructor(private afs: AngularFirestore, private AuthService:AuthService) {}
+  constructor(
+    private afs: AngularFirestore,
+    private AuthService: AuthService
+  ) {}
 
   ngOnInit() {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
@@ -90,7 +93,11 @@ export class ChatComponent implements OnInit {
     } catch (err) {}
   }
   showfriendmsg(val: any) {
-    
+    if (screen.availWidth < 768) {
+      document.getElementById('mfdlist')?.classList.add('d-none');
+      document.getElementById('mfd')?.classList.remove('d-none');
+      document.getElementById('mfd')?.classList.add('d-block');
+    }
     this.receiverid = val;
     this.hide = true;
     var name = this.users.filter((user: any) => user.uid == val);
@@ -99,6 +106,16 @@ export class ChatComponent implements OnInit {
     this.username = name;
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
     this.geallmsg();
+  }
+  showfriend() {
+    if (screen.availWidth < 768) {
+      document.getElementById('mfdlist')?.classList.remove('d-none');
+      document.getElementById('mfd')?.classList.add('d-none');
+    }
+    else{
+      this.hide = false
+    }
+    
   }
   geallmsg() {
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
@@ -125,14 +142,14 @@ export class ChatComponent implements OnInit {
           return c - d;
         });
         arr3.reverse();
-        
+
         this.msg = [];
         for (var i = 0; i < arr3.length; i++) {
           this.msg.push(arr3[i]);
         }
       });
   }
-  logout(){
+  logout() {
     this.AuthService.SignOut();
   }
 }
