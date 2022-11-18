@@ -32,9 +32,6 @@ export class AuthService {
     });
   }
   SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
     const userData: Users = {
       uid: user.uid,
       email: user.email,
@@ -42,9 +39,7 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+    localStorage.setItem('user', JSON.stringify(userData));
   }
   signIn(email: string, password: string) {
     return this.afAuth
@@ -102,9 +97,9 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['profile']);
         this.SetUserData(result.user);
         var userinfo = JSON.parse(localStorage.getItem('user')!);
+        // console.log(userinfo)
         this.afs.collection('users').doc(userinfo.uid).set(
           {
             uid: userinfo.uid,
@@ -114,6 +109,7 @@ export class AuthService {
           },
           { merge: true }
         );
+        this.router.navigate(['profile']);
       })
       .catch((error) => {
         window.alert(error);

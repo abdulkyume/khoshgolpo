@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
 
 @Component({
@@ -15,49 +16,60 @@ export class AddfriendsComponent implements OnInit {
   freq: any = [];
   constructor(
     private afs: AngularFirestore,
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    var addfd: any;
-    var userinfo = JSON.parse(localStorage.getItem('user')!);
-    this.afs
-      .collection('addfriends')
-      .valueChanges()
-      .subscribe((userss) => {
-        var exlude: any = [];
-        exlude.push(userinfo.uid);
-        this.ausers = userss;
-        this.users = this.ausers.filter((user) => user.uid == userinfo.uid);
-        addfd = this.users;
-        for (var i = 0; i < addfd.length; i++) {
-          exlude.push(addfd[i].afduid);
-        }
-        this.afs
-          .collection('firends')
-          .valueChanges()
-          .subscribe((userss) => {
-            this.ausers = userss;
-            this.users = this.ausers.filter((user) => user.uid == userinfo.uid);
-            for (var i = 0; i < this.users.length; i++) {
-              exlude.push(this.users[i].fuid);
-            }
-            this.afs
-              .collection('users', (ref) => ref.where('uid', 'not-in', exlude))
-              .valueChanges()
-              .subscribe((ussers) => {
-                this.users = ussers;
-              });
-          });
-      });
-    this.afs
-      .collection('users')
-      .valueChanges()
-      .subscribe((userss) => {
-        this.ausers = userss;
-        this.users = this.ausers.filter((user) => user.uid != userinfo.uid);
-      });
+    this.userinfo = localStorage.getItem('user')!;
+    if (this.userinfo === null) {
+      this.router.navigate(['login']);
+    } else {
+      var addfd: any;
+      var userinfo = JSON.parse(localStorage.getItem('user')!);
+      this.afs
+        .collection('addfriends')
+        .valueChanges()
+        .subscribe((userss) => {
+          var exlude: any = [];
+          exlude.push(userinfo.uid);
+          this.ausers = userss;
+          this.users = this.ausers.filter((user) => user.uid == userinfo.uid);
+          addfd = this.users;
+          for (var i = 0; i < addfd.length; i++) {
+            exlude.push(addfd[i].afduid);
+          }
+          this.afs
+            .collection('firends')
+            .valueChanges()
+            .subscribe((userss) => {
+              this.ausers = userss;
+              this.users = this.ausers.filter(
+                (user) => user.uid == userinfo.uid
+              );
+              for (var i = 0; i < this.users.length; i++) {
+                exlude.push(this.users[i].fuid);
+              }
+              this.afs
+                .collection('users', (ref) =>
+                  ref.where('uid', 'not-in', exlude)
+                )
+                .valueChanges()
+                .subscribe((ussers) => {
+                  this.users = ussers;
+                });
+            });
+        });
+      this.afs
+        .collection('users')
+        .valueChanges()
+        .subscribe((userss) => {
+          this.ausers = userss;
+          this.users = this.ausers.filter((user) => user.uid != userinfo.uid);
+        });
+    }
   }
+
   addfriendreq(afdid: any) {
     var userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
