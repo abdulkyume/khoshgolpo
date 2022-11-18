@@ -98,13 +98,13 @@ export class ChatComponent implements OnInit {
     var name = name[0].username;
     this.username = name;
     this.userinfo = JSON.parse(localStorage.getItem('user')!);
-    // this.afs
-    //   .collection('chats', (ref) => ref.where('suid', '==', this.userinfo.uid && 'suid', '==', this.userinfo.uid))
-    //   .valueChanges()
-    //   .subscribe((ussers) => {
-    //     // this.users = ussers;
-    //     console.log(ussers)
-    //   });
+    this.afs
+      .collection('chats')
+      .valueChanges()
+      .subscribe((ussers) => {
+        // this.users = ussers;
+        console.log(ussers)
+      });
   }
   geallmsg() {}
 }
