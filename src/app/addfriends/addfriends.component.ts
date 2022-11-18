@@ -13,9 +13,13 @@ export class AddfriendsComponent implements OnInit {
   userinfo: any;
   freqsearch: any;
   freq: any = [];
-  constructor(private afs: AngularFirestore, private AuthService:AuthService) {}
+  constructor(
+    private afs: AngularFirestore,
+    private AuthService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    var addfd: any;
     var userinfo = JSON.parse(localStorage.getItem('user')!);
     this.afs
       .collection('addfriends')
@@ -25,14 +29,25 @@ export class AddfriendsComponent implements OnInit {
         exlude.push(userinfo.uid);
         this.ausers = userss;
         this.users = this.ausers.filter((user) => user.uid == userinfo.uid);
-        for (var i = 0; i < this.users.length; i++) {
-          exlude.push(this.users[i].afduid);
+        addfd = this.users;
+        for (var i = 0; i < addfd.length; i++) {
+          exlude.push(addfd[i].afduid);
         }
         this.afs
-          .collection('users', (ref) => ref.where('uid', 'not-in', exlude))
+          .collection('firends')
           .valueChanges()
-          .subscribe((ussers) => {
-            this.users = ussers;
+          .subscribe((userss) => {
+            this.ausers = userss;
+            this.users = this.ausers.filter((user) => user.uid == userinfo.uid);
+            for (var i = 0; i < this.users.length; i++) {
+              exlude.push(this.users[i].fuid);
+            }
+            this.afs
+              .collection('users', (ref) => ref.where('uid', 'not-in', exlude))
+              .valueChanges()
+              .subscribe((ussers) => {
+                this.users = ussers;
+              });
           });
       });
     this.afs
@@ -56,7 +71,6 @@ export class AddfriendsComponent implements OnInit {
         { merge: true }
       );
 
-    
     this.freq.push(userinfo.uid);
     this.freq.push(afdid);
     this.afs
@@ -78,7 +92,7 @@ export class AddfriendsComponent implements OnInit {
         );
     }
   }
-  logout(){
+  logout() {
     this.AuthService.SignOut();
   }
 }

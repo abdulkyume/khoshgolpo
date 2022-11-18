@@ -2,33 +2,30 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-6 text-start">
-        <strong class="d-inline-block me-3"
-          ><i class="bi bi-justify text-white"></i
-        ></strong>
-        <a routerLink="/profile" class="text-decoration-none text-white"><img src="assets/img/khoshgolpo.png" alt="khoshgolpo" class="img-fluid w-25"></a>
+        <a routerLink="/profile" class="text-decoration-none text-white d-inline-block"><img src="assets/img/khoshgolpo.png" alt="khoshgolpo" class="img-fluid logo"></a>
       </div>
       <div class="col-lg-6 col-md-6 col-6 text-end align-content-center justify-content-end align-items-center d-flex">
-        <strong class="d-inline-block"
+        <strong class="d-inline-block" title="LogOut"
           ><i class="bi bi-box-arrow-right text-white" (click)="logout()"></i></strong>
       </div>
     </div>
   </div>
 </header>
-<section class="bg-dark vh-100 d-flex justify-content-center align-content-center align-items-center ">
+<section class="bg-dark d-flex justify-content-center align-items-center " style="height: 93vh;">
   <div
-    class="d-flex justify-content-center align-content-center align-items-center flex-column bg-danger w-25 ms-auto me-auto p-5"
+    class="d-flex justify-content-center align-items-center flex-column ms-auto me-auto p-lg-5 bg-main"
   >
-    <div><img class="img-fluid" id="userpic"/></div>
+    <div class="mt-5"><img class="img-fluid" id="userpic"/></div>
     <div class="text-white text-center mt-4">{{userinfo.displayName}}</div>
-    <div>
-      <ul class="list-unstyled text-center">
-        <li class="d-inline-block ms-5 me-5 mt-5">
+    <div class="">
+      <ul class="list-unstyled">
+        <li class="d-inline-block ms-lg-5 me-lg-5 mt-5 ms-5 me-5" title="Friends">
           <a routerLink="/friends"><i class="bi bi-people-fill text-white"></i></a>
         </li>
-        <li class="d-inline-block ms-5 me-5">
+        <li class="d-inline-block ms-lg-5 me-lg-5 ms-5 me-5" title="Add Friends">
           <a routerLink="/addfriend"><i class="bi bi-person-plus-fill text-white"></i></a>
         </li>
-        <li class="d-inline-block ms-5 me-5 mb-5">
+        <li class="d-inline-block ms-lg-5 me-lg-5 ms-5 me-5 mb-5" title="Message">
           <a routerLink="/chat"><i class="bi bi-chat-dots-fill text-white"></i></a>
         </li>
       </ul>
