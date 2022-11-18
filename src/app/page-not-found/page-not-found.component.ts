@@ -13,7 +13,7 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnInit(): void {
     this.userinfo = localStorage.getItem('user')!;
-    if (this.userinfo === null) {
+    if (this.userinfo) {
       this.router.navigate(['login']);
     }
   }
